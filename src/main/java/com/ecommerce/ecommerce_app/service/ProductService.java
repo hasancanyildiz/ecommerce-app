@@ -42,4 +42,14 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+
+    public int countInStockProducts(){
+        List<Product> allProducts = productRepository.findAll();
+        int count =0;
+        return (int) allProducts.stream()
+                .filter(product -> product.getStockQuantity() > 0)
+                .count();
+
+    }
+
 }

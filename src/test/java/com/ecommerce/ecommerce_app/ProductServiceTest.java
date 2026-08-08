@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,4 +48,21 @@ public class ProductServiceTest {
 
         assertNull(result);
     }
+    @Test
+    void shouldCountInSockProducts() {
+        Product product1=new Product();
+        product1.setStockQuantity(5);
+        Product product2=new Product();
+        product2.setStockQuantity(0);
+        Product product3=new Product();
+        product3.setStockQuantity(3);
+        List<Product> allProducts = List.of(product1, product2, product3);
+        when(productRepository.findAll()).thenReturn(allProducts);
+        int result = productService.countInStockProducts();
+
+        assertEquals(2, result);
+        System.out.println(result);
+    }
+
+
 }
